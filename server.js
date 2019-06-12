@@ -1,37 +1,37 @@
 const { ApolloServer } = require('apollo-server');
 const mongoose = require('mongoose');
 // dotenv
-require('dotenv').config()
+require('dotenv').config();
 
 // Import Resolvers typeDefs
 const typeDefs = require('./typeDefs');
 const resolvers = require('./resolvers');
-const { findOrCreateUser } = require('./controllers/userController.js');
+const { findOrCreateUser } = require("./controllers/userController");
 
 
 // Mongoose connect
-mongoose.connect(process.env.MONGO_URI, { 
-    useNewUrlParser: true })
-    .then(() => console.log('DB Connected'))
-    .catch(err => console.error(err));
+mongoose
+  .connect(process.env.MONGO_URI, { useNewUrlParser: true })
+  .then(() => console.log("DB connected!"))
+  .catch(err => console.error(err));
 
-const server = new ApolloServer({
+  const server = new ApolloServer({
     typeDefs,
     resolvers,
     context: async ({ req }) => {
-        let authToken = null
-        let currentUser = null
-        try{
-            authToken = req.headers.authorization
-            if(authToken) {
-                currentUser = await findOrCreateUser(authToken)
-            }
-        } catch (err) {
-            console.error(`Unable to authenticate user with token ${authToken}`)
+      let authToken = null;
+      let currentUser = null;
+      try {
+        authToken = req.headers.authorization;
+        if (authToken) {
+          currentUser = await findOrCreateUser(authToken);
         }
-        return { currentUser } 
+      } catch (err) {
+        console.error(`Unable to authenticate user with token ${authToken}`);
+      }
+      return { currentUser };
     }
-});
+  });
 
 server.listen().then(({ url }) => {
     console.log(`Server listen on ${url}/graphql`)
