@@ -4,16 +4,7 @@ import { GoogleLogin } from 'react-google-login';
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Context from '../../context';
-
-const ME_QUERY = `
-{
-  me{
-    _id
-    name
-    email
-    picture
-  }
-}` 
+import { ME_QUERY } from '../../graphql/queries';
 
 const Login = ({ classes }) => {
   const { dispatch } = useContext(Context);
@@ -25,7 +16,7 @@ const Login = ({ classes }) => {
         headers: { authorization: idToken }
       });
       const { me } = await client.request(ME_QUERY);
-      // console.log({data})
+      console.log({ me })
       dispatch({ type: "LOGIN_USER", payload: me });
     } catch (err) {
       onFailure(err);
@@ -48,7 +39,7 @@ const Login = ({ classes }) => {
       Welcome
     </Typography>
     <GoogleLogin
-      clientId="117618048379-qrbari92bu5gvkb5d5pertsrshccff6m.apps.googleusercontent.com"
+      clientId="226743835108-vv9vnn1r8t9aadvj6jrrmbropv510ggq.apps.googleusercontent.com"
       onSuccess={onSuccess}
       onFailure={onFailure}
       isSignedIn={true}
