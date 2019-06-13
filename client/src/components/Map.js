@@ -31,6 +31,10 @@ const Map = ({ classes }) => {
     }
   }
 
+  const handleMapClick = event => {
+    console.log(event)
+  }
+
   return (
     <div className={classes.root}>
       <ReactMapGL
@@ -39,6 +43,7 @@ const Map = ({ classes }) => {
         mapStyle="mapbox://styles/mapbox/streets-v9"
         mapboxApiAccessToken="pk.eyJ1IjoiY3JvZHJpZ3Vlejg1IiwiYSI6ImNqd3V2eGpzYTBsZmUzeW81NTJwemJicmQifQ.XoQ9-TPZNzQO6boBQ-3VXA"
         onViewportChange={newViewport => setViewport(newViewport)}
+        onClick={handleMapClick}
         { ...viewport }
       >
         {/* Navigation Control */}
