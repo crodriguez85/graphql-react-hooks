@@ -31,11 +31,15 @@ const Login = ({ classes }) => {
     // console.log({ data });
     dispatch({ type: "LOGIN_USER", payload: me})
   };
+
+  const onFailure = err => {
+    console.error("Error Loging In", err)
+  }
   return(
     <GoogleLogin 
       clientId="226743835108-vv9vnn1r8t9aadvj6jrrmbropv510ggq.apps.googleusercontent.com"
       onSuccess={responseGoogle}
-      onFailure={responseGoogle}
+      onFailure={onFailure}
       isSignedIn={true}
       />
   )
