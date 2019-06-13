@@ -11,7 +11,7 @@ const Signout = ({ classes }) => {
   const { dispatch } = useContext(Context)
   const onSignout = () => {
     dispatch({ type: "SIGNOUT_USER"})
-    console.log("Signed Out")
+    // console.log("Signed Out")
   }
   
 
