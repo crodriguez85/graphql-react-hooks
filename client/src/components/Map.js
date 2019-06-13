@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import ReactMapGL, { NavigationControl, Marker } from 'react-map-gl';
 import { withStyles } from "@material-ui/core/styles";
 // import Button from "@material-ui/core/Button";
@@ -6,6 +6,7 @@ import { withStyles } from "@material-ui/core/styles";
 // import DeleteIcon from "@material-ui/icons/DeleteTwoTone";
 
 import PinIcon from './PinIcon';
+import Context from '../context';
 
 const INITIAL_VIEWPORT = {
   latitude: -33.4087838,
@@ -14,9 +15,10 @@ const INITIAL_VIEWPORT = {
 }
 
 const Map = ({ classes }) => {
+  const { state, dispatch } = useContext(Context);
 
-  const [viewport, setViewport ] = useState(INITIAL_VIEWPORT)
-  const [ userPosition, setUserPosition ] = useState(null)
+  const [viewport, setViewport ] = useState(INITIAL_VIEWPORT);
+  const [ userPosition, setUserPosition ] = useState(null);
   useEffect(() => {
     getUserPosition()
   }, [])
@@ -31,8 +33,11 @@ const Map = ({ classes }) => {
     }
   }
 
-  const handleMapClick = event => {
-    console.log(event)
+  const handleMapClick = ({ lngLat, leftButton }) => {
+    if (!leftButton) return
+    if(!state.draft) {
+      dispatch({ type: "CREATE_DRAFT"})
+    }
   }
 
   return (
