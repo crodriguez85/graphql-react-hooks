@@ -2,9 +2,7 @@ import React, { useContext } from "react";
 import { GraphQLClient } from 'graphql-request';
 import { GoogleLogin } from 'react-google-login';
 import { withStyles } from "@material-ui/core/styles";
-
-// import Typography from "@material-ui/core/Typography";
-
+import Typography from "@material-ui/core/Typography";
 import Context from '../../context';
 
 const ME_QUERY = `
@@ -39,23 +37,37 @@ const Login = ({ classes }) => {
     console.error("Error Loging In", err)
   }
   return(
-    <GoogleLogin 
-      clientId="226743835108-vv9vnn1r8t9aadvj6jrrmbropv510ggq.apps.googleusercontent.com"
+    <div className={classes.root}>
+    <Typography
+      component="h1"
+      variant="h3"
+      gutterBottom
+      noWrap
+      style={{ color: "rgb(66, 133, 244)" }}
+    >
+      Welcome
+    </Typography>
+    <GoogleLogin
+      clientId="117618048379-qrbari92bu5gvkb5d5pertsrshccff6m.apps.googleusercontent.com"
       onSuccess={onSuccess}
       onFailure={onFailure}
       isSignedIn={true}
-      />
-  )
+      buttonText="Login with Google"
+      theme="dark"
+    />
+  </div>
+);
 };
 
 const styles = {
-  root: {
-    height: "100vh",
-    display: "flex",
-    justifyContent: "center",
-    flexDirection: "column",
-    alignItems: "center"
-  }
+root: {
+  height: "100vh",
+  display: "flex",
+  justifyContent: "center",
+  flexDirection: "column",
+  alignItems: "center"
+}
 };
 
 export default withStyles(styles)(Login);
+
