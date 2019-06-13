@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useContext } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
@@ -8,11 +8,20 @@ import LandscapeIcon from "@material-ui/icons/LandscapeOutlined";
 import ClearIcon from "@material-ui/icons/Clear";
 import SaveIcon from "@material-ui/icons/SaveTwoTone";
 
-const CreatePin = ({ classes }) => {
+import Context from '../../context';
 
+const CreatePin = ({ classes }) => {
+  const { dispatch } = useContext(Context)
   const [ title, setTitle ] = useState("")
   const [ image, setImage ] = useState("")
   const [ content, setContent ] = useState("")
+
+  const handleDeleteDraft = () => {
+    setTitle = ("")
+    setImage = ("")
+    setContent = ("")
+    dispatch({ type: "DELETE_DRAFT"})
+  }
 
   const handleSubmit = event => {
     event.preventDeafult()
@@ -71,6 +80,7 @@ const CreatePin = ({ classes }) => {
           className={classes.button}
           variant="contained"
           color="primary"
+          onClick={handleDeleteDraft}
         >
           <ClearIcon className={classes.leftIcon} />
           Discard
