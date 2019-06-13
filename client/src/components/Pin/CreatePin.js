@@ -17,11 +17,11 @@ const CreatePin = ({ classes }) => {
   const [ content, setContent ] = useState("")
 
   const handleDeleteDraft = () => {
-    setTitle = ("")
-    setImage = ("")
-    setContent = ("")
-    dispatch({ type: "DELETE_DRAFT"})
-  }
+    setTitle("");
+    setImage("");
+    setContent("");
+    dispatch({ type: "DELETE_DRAFT" });
+  };
 
   const handleSubmit = event => {
     event.preventDeafult()
