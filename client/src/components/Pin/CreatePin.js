@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { withStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
@@ -9,6 +9,11 @@ import ClearIcon from "@material-ui/icons/Clear";
 import SaveIcon from "@material-ui/icons/SaveTwoTone";
 
 const CreatePin = ({ classes }) => {
+
+  const [ title, setTitle ] = useState("")
+  const [ image, setImage ] = useState("")
+  const [ content, setContent ] = useState("")
+
   return (
     <form className={classes.form}>
       <Typography
