@@ -2,7 +2,8 @@ import { createContext } from 'react';
 
 const Context = createContext({
     currentUser: null,
-    isAuth: null
+    isAuth: null,
+    draft: null
 })
 
 
