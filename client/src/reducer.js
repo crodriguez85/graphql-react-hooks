@@ -5,17 +5,20 @@ export default function reducer(state, { type, payload }) {
           ...state,
           currentUser: payload
         };
+
       case "IS_LOGGED_IN":
         return {
           ...state,
           isAuth: payload
         };
+
       case "SIGNOUT_USER":
         return {
           ...state,
           isAuth: false,
           currentUser: null
         };
+
       case "CREATE_DRAFT":
         return {
           ...state,
@@ -25,13 +28,20 @@ export default function reducer(state, { type, payload }) {
             longitude: 0
           }
         };
+
       case "UPDATE_DRAFT_LOCATION":
         return {
           ...state,
           draft: payload
         };
 
-            default:
+      case "DELETE_DRAFT":
+        return {
+          ...state,
+          draft: null
+        };
+
+        default:
                 return state;
     }
 }
