@@ -38,7 +38,12 @@ const Map = ({ classes }) => {
     if(!state.draft) {
       dispatch({ type: "CREATE_DRAFT"})
     }
-  }
+    const [ longitude, latitude ] = lngLat
+    dispatch({
+      type: "UPDATE_DRAFT_LOCATION",
+      payload: { longitude, latitude }
+    })
+  };
 
   return (
     <div className={classes.root}>
