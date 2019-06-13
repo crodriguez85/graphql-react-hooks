@@ -34,15 +34,15 @@ const Map = ({ classes }) => {
   }
 
   const handleMapClick = ({ lngLat, leftButton }) => {
-    if (!leftButton) return
-    if(!state.draft) {
-      dispatch({ type: "CREATE_DRAFT"})
+    if (!leftButton) return;
+    if (!state.draft) {
+      dispatch({ type: "CREATE_DRAFT" });
     }
-    const [ longitude, latitude ] = lngLat
+    const [longitude, latitude] = lngLat;
     dispatch({
       type: "UPDATE_DRAFT_LOCATION",
       payload: { longitude, latitude }
-    })
+    });
   };
 
   return (
@@ -68,9 +68,19 @@ const Map = ({ classes }) => {
             latitude={userPosition.latitude}
             longitude={userPosition.longitude}
             offsetLeft={-19}
-            offsetTop={-37}
-          >
+            offsetTop={-37}>
             <PinIcon size={40} color="red"/>
+          </Marker>
+        )}
+
+         {/* Draft Pin */}
+         {state.draft && (
+          <Marker
+            latitude={state.draft.latitude}
+            longitude={state.draft.longitude}
+            offsetLeft={-19}
+            offsetTop={-37}>
+            <PinIcon size={40} color="hotpink" />
           </Marker>
         )}
       </ReactMapGL>
