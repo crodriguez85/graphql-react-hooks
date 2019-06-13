@@ -6,6 +6,7 @@ import MapIcon from "@material-ui/icons/Map";
 import Typography from "@material-ui/core/Typography";
 
 import Context from '../context';
+import Signout from '../components/Auth/Signout';
 
 const Header = ({ classes }) => {
   const { state  } = useContext(Context)
@@ -35,6 +36,8 @@ const Header = ({ classes }) => {
                   className={classes.picture}
                   src={currentUser.picture}
                   alt={currentUser.name}
+                  
+
               />
               <Typography
                 variant="h5"
@@ -47,7 +50,8 @@ const Header = ({ classes }) => {
           )}
 
           {/* SignOut Button */}
-          
+          <Signout/>
+
         </Toolbar>
       </AppBar>
     </div>
