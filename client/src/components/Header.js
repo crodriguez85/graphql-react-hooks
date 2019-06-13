@@ -45,6 +45,9 @@ const Header = ({ classes }) => {
               </Typography>
             </div>
           )}
+
+          {/* SignOut Button */}
+          
         </Toolbar>
       </AppBar>
     </div>
