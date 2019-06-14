@@ -36,9 +36,10 @@ const CreatePin = ({ classes }) => {
     return res.data.url
   }
 
-  const handleSubmit = event => {
+  const handleSubmit = async event => {
     event.preventDeafult()
-    console.log({ title, image, content })
+    const url = await handleImageUpload();
+    console.log({ title, image, content, url })
   }
 
   return (
