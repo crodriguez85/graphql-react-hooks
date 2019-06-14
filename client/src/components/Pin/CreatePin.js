@@ -1,5 +1,5 @@
-import React, {useState, useContext } from "react";
-import axios from 'axios';
+import React, { useState, useContext } from "react";
+import axios from "axios";
 import { withStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
@@ -9,13 +9,15 @@ import LandscapeIcon from "@material-ui/icons/LandscapeOutlined";
 import ClearIcon from "@material-ui/icons/Clear";
 import SaveIcon from "@material-ui/icons/SaveTwoTone";
 
-import Context from '../../context';
+import Context from "../../context";
+
 
 const CreatePin = ({ classes }) => {
-  const { dispatch } = useContext(Context)
-  const [ title, setTitle ] = useState("")
-  const [ image, setImage ] = useState("")
-  const [ content, setContent ] = useState("")
+  const { state, dispatch } = useContext(Context);
+  const [title, setTitle] = useState("");
+  const [image, setImage] = useState("");
+  const [content, setContent] = useState("");
+
 
   const handleDeleteDraft = () => {
     setTitle("");
@@ -25,22 +27,23 @@ const CreatePin = ({ classes }) => {
   };
 
   const handleImageUpload = async () => {
-    const data = new FormData()
-    data.append("file", image)
-    data.append("upload_preset", "geopins")
-    data.append("cloud_name", "dxdvxsi7g")
+    const data = new FormData();
+    data.append("file", image);
+    data.append("upload_preset", "geopins");
+    data.append("cloud_name", "dxdvxsi7g");
     const res = await axios.post(
       "https://api.cloudinary.com/v1_1/dxdvxsi7g/image/upload",
       data
-    )
-    return res.data.url
-  }
+    );
+    return res.data.url;
+  };
 
   const handleSubmit = async event => {
-    event.preventDeafult()
-    const url = await handleImageUpload();
-    console.log({ title, image, content, url })
-  }
+      event.preventDefault();
+      const url = await handleImageUpload();
+      console.log({ title, image, url, content})
+      handleDeleteDraft();
+  };
 
   return (
     <form className={classes.form}>
@@ -57,18 +60,18 @@ const CreatePin = ({ classes }) => {
           name="title"
           label="Title"
           placeholder="Insert pin title"
-          onChange={event => setTitle(event.target.value)}
+          onChange={e => setTitle(e.target.value)}
         />
         <input
           accept="image/*"
           id="image"
           type="file"
           className={classes.input}
-          onChange={event => setImage(event.target.files[0])}
+          onChange={e => setImage(e.target.files[0])}
         />
         <label htmlFor="image">
           <Button
-          style={{ color: image && "green" }}
+            style={{ color: image && "green" }}
             component="span"
             size="small"
             className={classes.button}
@@ -86,15 +89,15 @@ const CreatePin = ({ classes }) => {
           margin="normal"
           fullWidth
           variant="outlined"
-          onChange={event => setContent(event.target.value)}
+          onChange={e => setContent(e.target.value)}
         />
       </div>
       <div>
         <Button
+          onClick={handleDeleteDraft}
           className={classes.button}
           variant="contained"
           color="primary"
-          onClick={handleDeleteDraft}
         >
           <ClearIcon className={classes.leftIcon} />
           Discard
@@ -104,7 +107,7 @@ const CreatePin = ({ classes }) => {
           className={classes.button}
           variant="contained"
           color="secondary"
-          disabled={!title.trim() || !content.trim() | !image}
+          disabled={!title.trim() || !content.trim() || !image}
           onClick={handleSubmit}
         >
           Submit
@@ -154,6 +157,5 @@ const styles = theme => ({
     marginLeft: 0
   }
 });
-
 
 export default withStyles(styles)(CreatePin);
